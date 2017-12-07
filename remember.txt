@@ -1,0 +1,13 @@
+    def start_requests(self):
+        print('==================')
+        for url in self.start_urls:
+            yield scrapy.Request(url, cookies=self.cookies, callback=self.make_requests_from_url, dont_filter=True)
+
+    def make_requests_from_url(self, url):
+        print('make_request_from_url---------------------------------------')
+        return scrapy.FormRequest(url, headers=self.headers, cookies=self.cookies, dont_filter=True)
+
+    def parse_item(self, response):
+        print('=====================|||||||||||||||||||||||||')
+        print(response.request.headers.getlist('cookie'))
+        print("======================" + response.url)
